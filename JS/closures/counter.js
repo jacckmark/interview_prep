@@ -1,3 +1,4 @@
+// adds numbers to each other using closures to access variable that should not be accessible
 function counter(num) {
   let count = 0;
 
@@ -8,6 +9,7 @@ function counter(num) {
 }
 
 let myCounter1 = counter(2);
+console.log("\n*COUNTER");
 console.log(myCounter1()); //2
 console.log(myCounter1()); //4
 console.log(myCounter1()); //6
