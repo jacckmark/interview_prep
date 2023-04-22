@@ -25,6 +25,7 @@ const increment = debounce(() => {
 }, 50);
 
 console.log("\n*DEBOUNCE");
+// tests
 console.log(debounceCounter); //our counter is equal 0
 increment();
 increment();

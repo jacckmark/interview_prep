@@ -45,6 +45,7 @@ class Stack {
   }
 }
 
+console.log("\n*STACK WITHOUT AN ARRAY");
 console.log("\nafter creating one");
 let myStack = new Stack(111);
 console.log(myStack);
@@ -57,3 +58,50 @@ console.log(myStack);
 console.log("\nafter running pop");
 myStack.pop();
 console.log(myStack);
+
+// Stack version with an array
+class Stack2 {
+  constructor() {
+    this.__items = [];
+  }
+
+  // Pushes an item onto the top of the stack.
+  push(item) {
+    return this.__items.push(item);
+  }
+
+  // Remove an item at the top of the stack.
+  pop() {
+    return this.__items.pop();
+  }
+
+  // Determines if the stack is empty.
+  isEmpty() {
+    return !this.length();
+  }
+
+  // Returns the item at the top of the stack without removing it from the stack.
+  peek() {
+    return this.isEmpty() ? undefined : this.__items.slice(-1)[0];
+  }
+
+  // Returns the number of items in the stack.
+  length() {
+    return this.__items?.length;
+  }
+}
+
+console.log("\n*STACK WITH AN ARRAY");
+console.log("\nafter creating one");
+let myStack2 = new Stack2(111);
+console.log(myStack2);
+
+console.log("\nafter running push");
+myStack2.push(333);
+myStack2.push(90);
+console.log(myStack2);
+
+console.log("\nafter running pop");
+myStack2.pop();
+console.log(myStack2);
+console.log(`stacks length is now: ${myStack2.length()}`);

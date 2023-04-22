@@ -36,6 +36,8 @@ function get2(objectParam, pathParam, defaultValue) {
   return value !== undefined ? value : defaultValue;
 }
 
+console.log("\n*GETNESTEDPROPERTIES");
+// tests
 console.log(get({}, "a")); //undefined
 console.log(get({}, "a.b")); //undefined
 

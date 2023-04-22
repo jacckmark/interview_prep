@@ -47,6 +47,8 @@ const timeout5 = () => {
   }
 };
 
+console.log("\n*SETTIMEOUT");
+// tests
 timeout1();
 timeout2();
 timeout3();

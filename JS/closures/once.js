@@ -21,7 +21,8 @@ function once(func) {
 let onceCounter = 0;
 const onced = once(() => ++onceCounter);
 
-console.log("\n*DEBOUNCE");
+console.log("\n*ONCE");
+// tests
 const onced1 = onced();
 const onced2 = onced();
 console.log(onceCounter); //1
