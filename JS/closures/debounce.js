@@ -14,7 +14,7 @@ function debounce(func, time = 100) {
     // in which the function is originally created."
     timeoutId = setTimeout(function () {
       timeoutId = null;
-      func.call(context, args);
+      func.call(context, ...args);
     }, time);
   };
 }
