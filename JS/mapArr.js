@@ -9,7 +9,7 @@ Array.prototype.myMap = function (callbackFn, thisArg) {
       res.push(current);
       continue;
     }
-    const modifiedEl = callbackFn.call(thisArg, this[i], i, this);
+    const modifiedEl = callbackFn.call(thisArg, current, i, this);
     res.push(modifiedEl);
   }
 
