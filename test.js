@@ -174,6 +174,26 @@ Array.prototype.myReduce = function (callbackFn, initialVal) {
   return acc;
 };
 
+function curry(func) {
+  return function curried(...args) {
+    if (args.length >= func.length) {
+      return func.apply(this, args);
+    } else {
+      return function (...args2) {
+        return curried.apply(this, args.concat(args2));
+      };
+    }
+  };
+}
+
+Function.prototype.myBind = function (thisArg, ...boundArgs) {
+  const originalMethod = this;
+
+  return function (...args) {
+    return originalMethod.apply(thisArg, [...boundArgs, ...args]);
+  };
+};
+
 function once(func) {
   let isCallable = true;
   let res;
@@ -201,14 +221,6 @@ function debounce(func, time = 100) {
   };
 }
 
-Function.prototype.myBind = function (thisArg, ...boundArgs) {
-  const originalMethod = this;
-
-  return function (...args) {
-    return originalMethod.apply(thisArg, [...boundArgs, ...args]);
-  };
-};
-
 const testArr = [2, 23, 1, 0, 55, 424, 11, 5, 3, 80];
 console.log(bubbleSort([...testArr]));
 console.log(selectionSort([...testArr]));
@@ -224,6 +236,19 @@ console.log(fibonacci(9)); //34
 console.log([1, 2, 3, 4, 5, 6, 22].myFilter(el => el >= 4)); //[4,5,6,22]
 console.log([1, 2, 3, 4, 5, 6, 22].myMap(el => el + 1)); //[2,3,4,5,6,7,23]
 console.log([1, 2, 3, 4, 5, 6, 22].myReduce((prev, curr) => prev + curr, 0)); //43
+const sum = (a, b, c) => a + b + c;
+const curriedSum = curry(sum);
+console.log(curriedSum(1)(2)(3)); //6
+console.log(curriedSum(1, 2)(3)); //6
+console.log(curriedSum(1, 2, 3)); //6
+const person = {
+  name: "John",
+  greeting(prefix, message) {
+    return `${prefix} ${this.name}, ${message}`;
+  }
+};
+const greeting = person.greeting.myBind(person, "Mr.");
+console.log(greeting("good morning!")); // 'Mr. John, good morning!'
 let onceCounter = 0;
 const onced = once(() => ++onceCounter);
 const onced1 = onced();
@@ -238,12 +263,4 @@ console.log(debounceCounter); // 0
 increment();
 increment();
 console.log(debounceCounter); // still 0
-setTimeout(() => console.log(debounceCounter), 50);
-const person = {
-  name: "John",
-  greeting(prefix, message) {
-    return `${prefix} ${this.name}, ${message}`;
-  }
-};
-const greeting = person.greeting.myBind(person, "Mr.");
-console.log(greeting("good morning!")); // 'Mr. John, good morning!'
+setTimeout(() => console.log(debounceCounter), 50); //1
