@@ -174,6 +174,12 @@ Array.prototype.myReduce = function (callbackFn, initialVal) {
   return acc;
 };
 
+function sumNum(num1) {
+  return function (num2) {
+    return num2 === undefined ? num1 : sumNum(num1 + num2);
+  };
+}
+
 function curry(func) {
   return function curried(...args) {
     if (args.length >= func.length) {
@@ -211,12 +217,12 @@ function debounce(func, time = 100) {
   let timeoutId = null;
 
   return function (...args) {
-    let context = this;
+    const context = this;
     clearTimeout(timeoutId);
 
     timeoutId = setTimeout(function () {
       timeoutId = null;
-      func.call(context, ...args);
+      return func.apply(context, args);
     }, time);
   };
 }
@@ -236,6 +242,7 @@ console.log(fibonacci(9)); //34
 console.log([1, 2, 3, 4, 5, 6, 22].myFilter(el => el >= 4)); //[4,5,6,22]
 console.log([1, 2, 3, 4, 5, 6, 22].myMap(el => el + 1)); //[2,3,4,5,6,7,23]
 console.log([1, 2, 3, 4, 5, 6, 22].myReduce((prev, curr) => prev + curr, 0)); //43
+console.log(sumNum(2)(3)(4)()); //9
 const sum = (a, b, c) => a + b + c;
 const curriedSum = curry(sum);
 console.log(curriedSum(1)(2)(3)); //6
