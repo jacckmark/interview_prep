@@ -2,10 +2,9 @@
 // every during the time will return with nothing until the timer runs out)
 function throttle(func, wait = 0) {
   let canBeCalled = true;
-  let res = null;
 
   return function (...args) {
-    if (!canBeCalled) return res;
+    if (!canBeCalled) return;
 
     canBeCalled = false;
 
