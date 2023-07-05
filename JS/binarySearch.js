@@ -31,6 +31,26 @@ function binarySearchImpl(arr, target, left, right) {
   return mid;
 }
 
+// non-recursive version
+function binarySearch2(arr, target) {
+  let left = 0;
+  let right = arr.length - 1;
+
+  while (left <= right) {
+    const mid = Math.floor((left + right) / 2);
+
+    if (target < arr[mid]) {
+      right = mid - 1;
+    } else if (target > arr[mid]) {
+      left = mid + 1;
+    } else {
+      return mid;
+    }
+  }
+
+  return -1;
+}
+
 console.log(binarySearch([], 1)); // -1
 console.log(binarySearch([1], 1)); // 0
 console.log(binarySearch([1, 2, 3], 3)); // 2
